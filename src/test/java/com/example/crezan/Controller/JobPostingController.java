@@ -1,4 +1,5 @@
 package com.example.crezan.Controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,5 +48,11 @@ public class JobPostingController {
         return ResponseEntity.ok().build();
     }
 
-    // Implement search endpoint here
+    @GetMapping("/search")
+    public List<JobPosting> searchJobPostings(
+            @RequestParam String keyword,
+            @RequestParam(required = false) List<String> locations,
+            @RequestParam(required = false) List<String> skills) {
+        return jobPostingService.searchJobPostings(keyword, locations, skills);
+    }
 }

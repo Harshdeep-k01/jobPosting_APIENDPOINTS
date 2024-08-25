@@ -15,4 +15,5 @@ public interface JobPostingRepository extends JpaRepository<JobPosting, Long> {
            "LOWER(j.location) IN :locations OR " +
            "j.requiredSkills IN :skills")
     List<JobPosting> searchJobPostings(String keyword, List<String> locations, List<String> skills);
+
 }

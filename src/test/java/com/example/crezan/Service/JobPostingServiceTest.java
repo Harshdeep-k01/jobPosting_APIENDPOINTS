@@ -1,13 +1,12 @@
 package com.example.crezan.Service;
+
+import com.example.crezan.Entity.JobPosting;
+import com.example.crezan.Repository.JobPostingRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.repository.Repository;
-
-import com.example.crezan.Entity.JobPosting;
-import com.example.crezan.Repository.JobPostingRepository;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,30 +25,36 @@ class JobPostingServiceTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.openMocks(this); // Initializes mocks
     }
 
     @Test
     void testGetAllJobPostings() {
+        // Mock data for testing
         List<JobPosting> mockPostings = Arrays.asList(new JobPosting(), new JobPosting());
-        when(Repository.findAll()).thenReturn(mockPostings);
+        when(repository.findAll()).thenReturn(mockPostings); // Mock findAll method
 
+        // Call the service method
         List<JobPosting> result = service.getAllJobPostings();
 
+        // Validate the results
         assertEquals(2, result.size());
         verify(repository, times(1)).findAll();
     }
 
     @Test
     void testGetJobPostingById() {
+        // Mock data for testing
         JobPosting mockPosting = new JobPosting();
-        when(Repository.findById(1L)).thenReturn(Optional.of(mockPosting));
+        when(repository.findById(1L)).thenReturn(Optional.of(mockPosting)); // Mock findById method
 
+        // Call the service method
         Optional<JobPosting> result = service.getJobPostingById(1L);
 
+        // Validate the results
         assertTrue(result.isPresent());
         verify(repository, times(1)).findById(1L);
     }
 
-    // Add more tests for other methods
+    // Add more tests for other methods if necessary
 }
